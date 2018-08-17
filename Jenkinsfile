@@ -186,7 +186,7 @@ pipeline {
             }
             post {
                 success {
-                    archive 'build/erd-stockmangement.zip, build/erd-stockmanagement/'
+                    archive 'erd/erd-stockmangement.zip, erd/erd-stockmanagement/'
                 }
                 failure {
                     script {
