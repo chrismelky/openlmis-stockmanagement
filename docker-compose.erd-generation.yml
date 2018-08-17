@@ -1,20 +1,29 @@
-version: "2"
+version: "3.5"
 services:
 
   stockmanagement:
     image: openlmis/stockmanagement
-    links:
+    env_file: erd.env
+    environment:
+      SPRING_PROFILES_ACTIVE: #clear the profile 
+    networks:
+      - stockmanagement
+    depends_on:
       - db
       - log
-    env_file: .env
 
   db:
     image: openlmis/postgres:9.6-postgis
-    ports:
-      - "5432"
-    env_file: .env
+    networks:
+      - stockmanagement
 
   log:
     image: openlmis/rsyslog:1
     volumes:
       - '../logs/stockmanagement:/var/log'
+    networks:
+      - stockmanagement
+
+networks:
+  stockmanagement:
+    name: stockmanagement-net

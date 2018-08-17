@@ -182,12 +182,12 @@ pipeline {
                 PATH = "/usr/local/bin/:$PATH"
             }
             steps {
-                dir('erd') {
-                    sh(script: "../ci-erdGeneration.sh")
-                    archiveArtifacts artifacts: 'erd-stockmanagement.zip'
-                }
+                sh(script: "./ci-erdGeneration.sh")
             }
             post {
+                success {
+                    archive 'build/erd-stockmangement.zip, build/erd-stockmanagement/'
+                }
                 failure {
                     script {
                         notifyAfterFailure()
